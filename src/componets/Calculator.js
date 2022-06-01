@@ -12,7 +12,7 @@ const Calculator = () => {
         [2, 3, 4],
         [5, 6, 7],
         [8, 9, "+"],
-        ["/", "*", "-"],
+        ["/", "*", "-", "="],
     ]
   
     const [screenValue, setScreenValue] = useState({
@@ -35,38 +35,92 @@ const Calculator = () => {
 
     };
 
-    const addClickHandler = (e) => {
-        e.preventDefault();
-        const value = e.target.innerHTML;
-        console.log(value + screenValue.num)
-    }
 
-    const substractClickHandler = () => {
-
-    }
-
-    const multiplyClickHandler = () => {
-
-    }
-
-    const divideClickHandler = () => {
-
-    }
 
     const numberClickHandler = (e) => {
         e.preventDefault();
         const value = e.target.innerHTML;
 
-        setScreenValue({
-            ...screenValue,
-            sign: "",
-            num: value,
-            res: 0,
+        if(screenValue.num === 0) {
+            setScreenValue({
+                ...screenValue,
+                num: value,
 
-        })
+            })
+
+        } else {
+            setScreenValue({
+                ...screenValue,
+                res: value
+
+            })
+        }
+
+    
         console.log(screenValue.num)
 
       
+
+    }
+    const signClickHandler = (e) => {
+        e.preventDefault();
+        const value = e.target.innerHTML;
+
+        setScreenValue({
+            ...screenValue,
+            sign: value,
+
+        })
+        console.log(screenValue.sign);
+
+    }
+
+    const equalClickHandler = () => {
+        
+        switch (screenValue.sign) {
+            case "+":
+                const add = Number(screenValue.num) + Number(screenValue.res);
+
+                setScreenValue({
+                    ...screenValue,
+                    num: add,
+                });
+
+                
+                break;
+            case "-":
+                const sub= Number(screenValue.num) - Number(screenValue.res);
+
+                setScreenValue({
+                    ...screenValue,
+                    num: sub,
+                });
+
+
+                break;
+            case "*":
+                const multiply = Number(screenValue.num) * Number(screenValue.res);
+
+                setScreenValue({
+                    ...screenValue,
+                    num: multiply,
+                });
+
+                break;
+            case "/":
+                const divide = Number(screenValue.num) / Number(screenValue.res);
+
+                setScreenValue({
+                    ...screenValue,
+                    num: divide,
+                });
+
+                break;
+        
+            default:
+                break;
+        }
+
 
     }
 
@@ -86,14 +140,10 @@ const Calculator = () => {
                         onClick={
                             btn === "C"
                                 ? resetClickHandler
-                                : btn === "+"
-                                ? addClickHandler
-                                : btn === "-"
-                                ? substractClickHandler
-                                : btn === "*"
-                                ? multiplyClickHandler
-                                : btn === "/"
-                                ? divideClickHandler
+                                : btn === "+" || btn === "-" || btn === "*" || btn === "/"
+                                ? signClickHandler
+                                : btn === "="
+                                ? equalClickHandler
                                 : numberClickHandler
 
                         }
