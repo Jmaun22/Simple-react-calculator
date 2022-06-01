@@ -5,8 +5,10 @@ button {
     display: inline-block;
     border-radius: 8px;
     outline: none;
-    font-size: 16px;
+    font-size: 80px;
     cursor: pointer;
+    padding: 7px;
+    margin: 3px;
 }
 
 button:hover {

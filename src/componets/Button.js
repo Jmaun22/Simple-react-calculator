@@ -1,9 +1,10 @@
 import "../componets/css/Button.css";
 
-const Button = ({ children }) => {
+const Button = ({ value, onClick, className }) => {
     return (
-        <button className="button">
-        {children}
+        <button className={className} onClick={onClick}>
+
+        {value}
         </button>
     );
     };
